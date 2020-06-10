@@ -16,6 +16,7 @@ limitations under the License.
 */
 
 import Skinner from './Skinner';
+import postal from 'postal';
 
 export function loadSkin(skinObject) {
     Skinner.load(skinObject);
@@ -27,4 +28,8 @@ export function resetSkin() {
 
 export function getComponent(componentName) {
     return Skinner.getComponent(componentName);
+}
+
+export function subscribeToBus(envelope) {
+    return postal.subscribe(envelope);
 }

@@ -35,6 +35,7 @@ import {IntegrationManagers} from "../../../integrations/IntegrationManagers";
 import {isPermalinkHost} from "../../../utils/permalinks/Permalinks";
 import {toRightOf} from "../../structures/ContextMenu";
 import {copyPlaintext} from "../../../utils/strings";
+import postal from 'postal';
 
 export default createReactClass({
     displayName: 'TextualBody',
@@ -430,6 +431,16 @@ export default createReactClass({
         } else if (content.data && typeof content.data["org.matrix.neb.starter_link"] === "string") {
             body = <a href="#" onClick={this.onStarterLinkClick.bind(this, content.data["org.matrix.neb.starter_link"])}>{ body }</a>;
         }
+
+        // [TT]: Emit an event with the containing dom element
+        postal.publish({
+            channel: 'TextualBody',
+            topic: 'message.added',
+            data: {
+                content,
+                ref: this._content
+            }
+        });
 
         let widgets;
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
