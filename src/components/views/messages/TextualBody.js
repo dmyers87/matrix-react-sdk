@@ -119,6 +119,18 @@ export default createReactClass({
             }
             this._addCodeCopyButton();
         }
+
+        // [TT]: Emit an event with the containing dom element notifying of a message needing formatting
+        if (this._content && this._content.current) {
+            postal.publish({
+                channel: 'TextualBody',
+                topic: 'message.format',
+                data: {
+                    content: this.props.mxEvent && this.props.mxEvent.getContent(),
+                    ref: this._content.current
+                }
+            });
+        }
     },
 
     componentDidUpdate: function(prevProps) {
@@ -431,16 +443,6 @@ export default createReactClass({
         } else if (content.data && typeof content.data["org.matrix.neb.starter_link"] === "string") {
             body = <a href="#" onClick={this.onStarterLinkClick.bind(this, content.data["org.matrix.neb.starter_link"])}>{ body }</a>;
         }
-
-        // [TT]: Emit an event with the containing dom element
-        postal.publish({
-            channel: 'TextualBody',
-            topic: 'message.added',
-            data: {
-                content,
-                ref: this._content
-            }
-        });
 
         let widgets;
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
