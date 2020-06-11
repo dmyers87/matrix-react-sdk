@@ -392,7 +392,16 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
         }).then((loadedSession) => {
             if (!loadedSession) {
                 // fall back to showing the welcome screen
-                dis.dispatch({action: "view_welcome_page"});
+                // dis.dispatch({action: "view_welcome_page"});
+
+                // [TT] Always initiate the sso auth flow with TTID
+                const platformPeg = PlatformPeg.get();
+                if (platformPeg) {
+                    platformPeg.startSingleSignOn(MatrixClientPeg.get(), "sso", "");
+                } else {
+                    // [TT] Always fallback directly to the login screen
+                    dis.dispatch({action: "start_login"});
+                }
             }
         });
         // Note we don't catch errors from this: we catch everything within
