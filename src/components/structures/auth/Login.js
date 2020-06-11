@@ -606,13 +606,6 @@ export default createReactClass({
     },
 
     _renderSsoStep: function(loginType) {
-        const SignInToText = sdk.getComponent('views.auth.SignInToText');
-
-        let onEditServerDetailsClick = null;
-        // If custom URLs are allowed, wire up the server details edit link.
-        if (PHASES_ENABLED && !SdkConfig.get()['disable_custom_urls']) {
-            onEditServerDetailsClick = this.onEditServerDetailsClick;
-        }
         // XXX: This link does *not* have a target="_blank" because single sign-on relies on
         // redirecting the user back to a URI once they're logged in. On the web, this means
         // we use the same window and redirect back to riot. On electron, this actually
@@ -623,12 +616,6 @@ export default createReactClass({
         // to vector://vector which, of course, will not work.
         return (
             <div>
-                <!-- [TT] Hide branding -->
-                <!--
-                <SignInToText serverConfig={this.props.serverConfig}
-                    onEditServerDetailsClick={onEditServerDetailsClick} />
-                -->
-
                 <SSOButton
                     className="mx_Login_sso_link mx_Login_submit"
                     matrixClient={this._loginLogic.createTemporaryClient()}
