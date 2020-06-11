@@ -398,7 +398,7 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
                 // [TT] Always initiate the sso auth flow with TTID
                 const plaf = PlatformPeg.get();
                 if (plaf) {
-                    const {hsUrl, isUrl} = this.props.serverConfig;
+                    const {hsUrl, isUrl} = this.getServerProperties().serverConfig;
                     // @ts-ignore
                     const tmpClient = Matrix.createClient({baseUrl: hsUrl, idBaseUrl: isUrl});
 
