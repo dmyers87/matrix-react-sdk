@@ -623,8 +623,11 @@ export default createReactClass({
         // to vector://vector which, of course, will not work.
         return (
             <div>
+                <!-- [TT] Hide branding -->
+                <!--
                 <SignInToText serverConfig={this.props.serverConfig}
                     onEditServerDetailsClick={onEditServerDetailsClick} />
+                -->
 
                 <SSOButton
                     className="mx_Login_sso_link mx_Login_submit"
@@ -680,13 +683,15 @@ export default createReactClass({
                     {_t("If you've joined lots of rooms, this might take a while")}
                 </div> }
             </div>;
-        } else {
-            footer = (
-                <a className="mx_AuthBody_changeFlow" onClick={this.onTryRegisterClick} href="#">
-                    { _t('Create account') }
-                </a>
-            );
         }
+        // [TT] Disable any account creation
+        // else {
+        //     footer = (
+        //         <a className="mx_AuthBody_changeFlow" onClick={this.onTryRegisterClick} href="#">
+        //             { _t('Create account') }
+        //         </a>
+        //     );
+        // }
 
         return (
             <AuthPage>

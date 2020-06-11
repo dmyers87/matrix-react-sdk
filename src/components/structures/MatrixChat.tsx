@@ -72,7 +72,6 @@ import {
     hideToast as hideAnalyticsToast
 } from "../../toasts/AnalyticsToast";
 import {showToast as showNotificationsToast} from "../../toasts/DesktopNotificationsToast";
-import Matrix from "matrix-js-sdk";
 
 /** constants for MatrixChat.state.view */
 export enum Views {
@@ -395,19 +394,8 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
                 // fall back to showing the welcome screen
                 // dis.dispatch({action: "view_welcome_page"});
 
-                // [TT] Always initiate the sso auth flow with TTID
-                const plaf = PlatformPeg.get();
-                if (plaf) {
-                    const {hsUrl, isUrl} = this.getServerProperties().serverConfig;
-                    // @ts-ignore
-                    const tmpClient = Matrix.createClient({baseUrl: hsUrl, idBaseUrl: isUrl});
-
-                    // Start the single sign on flow with TTID
-                    plaf.startSingleSignOn(tmpClient, "sso", "");
-                } else {
-                    // [TT] Always fallback directly to the login screen
-                    dis.dispatch({action: "start_login"});
-                }
+                // [TT] Always go directly to the login screen
+                dis.dispatch({action: "start_login"});
             }
         });
         // Note we don't catch errors from this: we catch everything within
