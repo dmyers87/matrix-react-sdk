@@ -88,7 +88,7 @@
     "project-name-generator": "^2.1.7",
     "prop-types": "^15.5.8",
     "qrcode": "^1.4.4",
-    "qs": "^6.6.0",
+    "qs": "^6.10.3",
     "react": "^16.9.0",
     "react-beautiful-dnd": "^4.0.1",
     "react-dom": "^16.9.0",
